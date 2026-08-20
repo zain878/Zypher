@@ -82,6 +82,7 @@ git clone https://github.com/zain878/Zypher.git
 
 ## Install the required packages:
 
+sudo apt install portaudio19-dev espeak-ng
 pip install -r requirements.txt
 
 
