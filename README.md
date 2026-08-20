@@ -74,21 +74,19 @@ Planned features include:
 ---
 
 ## Installation
+Run the following commands in terminal
 
 Clone the repository:
 
-  bash
-git clone https://github.com/zain878/Zypher.git
+git clone https://github.com/zain878/Zypher.git  
 
 Install the required packages:
 
-  bash
 pip install -r requirements.txt
 
 
 Run the assistant:
 
-  bash
 python run.py
 
 ---
