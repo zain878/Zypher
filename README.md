@@ -80,11 +80,14 @@ Run the following commands in terminal
 
 git clone https://github.com/zain878/Zypher.git  
 
-## Install the required packages:
+## Install Linux dependencies
 
+sudo apt update
 sudo apt install portaudio19-dev espeak-ng
-pip install -r requirements.txt
 
+## Install the required python packages:
+
+pip install -r requirements.txt
 
 ## Run the assistant:
 
