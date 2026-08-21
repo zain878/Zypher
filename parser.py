@@ -30,6 +30,12 @@ def parser(speech):
         target = "terminal"
         parts = speech.split("run")
         argument = parts[1].strip()
+        
+    elif action == "repeat":
+        pass
+
+    elif action == "back":
+        pass
 
     elif action == "search":
         if speech.startswith("search for"):
@@ -53,6 +59,9 @@ def parser(speech):
     elif action == "click":
         parts = speech.split(action)
         argument = parts[1].strip()
+
+    elif action in ["go back" , "back", "repeat"]:
+        action = "back"
 
     elif action == "press":
         parts = speech.split(action)

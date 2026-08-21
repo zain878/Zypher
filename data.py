@@ -25,6 +25,9 @@ actions = [
     "volume",
     "brightness",
     "save",
+    "repeat",
+    "again",
+    "back"
 ]
 
 aliases = {
@@ -56,7 +59,13 @@ aliases = {
     "chrome" : "google",
     "google chrome" : "google",
     "browser" : "google",
-    "back space": "backspace"
+    "back space": "backspace",
+    "again":"repeat",
+    "do it again": "repeat",
+    "repeat that": "repeat",
+    "once more": "repeat",
+    "previous command": "repeat",
+    "go back": "back"
 }
 
 folders = {
