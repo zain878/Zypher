@@ -1,4 +1,5 @@
-from data import numbers, operators,actions,aliases
+from data import numbers, operators, actions, aliases
+
 
 def parser(speech):
     action = None
@@ -69,7 +70,7 @@ def parser(speech):
         parts = speech.split(action)
         argument = parts[1].strip()
 
-    elif action in ["go back" , "back", "repeat"]:
+    elif action in ["go back", "back", "repeat"]:
         action = "back"
 
     elif action == "press":

@@ -9,6 +9,7 @@ shortcut_keys = {
     "save": ("ctrl", "s"),
 }
 
+
 def keyPress(key):
     pag.press(key)
 
@@ -16,8 +17,10 @@ def keyPress(key):
 def keyCombo(*keys):
     pag.hotkey(*keys)
 
+
 def writeText(text):
     pag.write(text, interval=0.07)
+
 
 def mouseClick(click):
     if click == "right":
@@ -26,6 +29,7 @@ def mouseClick(click):
         pag.leftClick()
     elif click == "double":
         pag.doubleClick()
+
 
 def keyboardPress(key):
     if key == "esc":

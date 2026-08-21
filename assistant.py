@@ -3,10 +3,11 @@ from speech import listenAudio, speak
 
 from parser import (
     parser,
-    normalizeSpeech, 
+    normalizeSpeech,
 )
 
 from context import context
+
 
 def main():
     while True:
@@ -25,12 +26,15 @@ def main():
         #           .replace("zipher", "", 1)
         #           .strip()
         # )
-        
+
         if any(word in speech for word in ["stop", "goodbye", "bye"]):
-                speak("Signing off. Goodbye, Zain.")
-                break
-        
-        elif any(word in speech for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]):
+            speak("Signing off. Goodbye, Zain.")
+            break
+
+        elif any(
+            word in speech
+            for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]
+        ):
             speak("Hello, Zain. This is Zypher. How can I assist you today?")
             continue
 
@@ -52,6 +56,6 @@ def main():
 
         execute(action, target, argument)
 
-        
+
 if __name__ == "__main__":
     main()

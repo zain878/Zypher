@@ -30,40 +30,30 @@ actions = [
     "back",
     "shutdown",
     "reboot",
-    "suspend"
+    "suspend",
 ]
 
 aliases = {
-
     "launch": "open",
     "start": "open",
     "open up": "open",
     "fire up": "open",
-    "search in" : "search",
-
+    "search in": "search",
     "execute": "run",
-
     "quit": "close",
-
     "write": "type",
-
     "flip": "click",
-
     "increase": "up",
     "decrease": "down",
     "lower": "down",
-
     "chat gpt": "chatgpt",
-
     "pseudo": "sudo",
-
     "pandu": "undo",
-
-    "chrome" : "google",
-    "google chrome" : "google",
-    "browser" : "google",
+    "chrome": "google",
+    "google chrome": "google",
+    "browser": "google",
     "back space": "backspace",
-    "again":"repeat",
+    "again": "repeat",
     "do it again": "repeat",
     "repeat that": "repeat",
     "once more": "repeat",

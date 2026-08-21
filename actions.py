@@ -1,15 +1,13 @@
-from keyboard import (
-    keyPress,
-    keyCombo,
-    writeText
-)
+from keyboard import keyPress, keyCombo, writeText
 
 from speech import speak
 from utils import wait
 
 import os
 import subprocess
+
 HOME = os.path.expanduser("~")
+
 
 def openApplication(appName):
     keyPress("win")
@@ -26,17 +24,22 @@ def openApplication(appName):
 def closeApplication():
     keyCombo("alt", "f4")
 
+
 def closeTab():
     keyCombo("ctrl", "w")
+
 
 def shutdown():
     subprocess.run(["systemctl", "poweroff"])
 
+
 def reboot():
     subprocess.run(["systemctl", "reboot"])
 
+
 def suspend():
     subprocess.run(["systemctl", "suspend"])
+
 
 def openWebsite(url):
     keyCombo("ctrl", "t")
@@ -50,13 +53,14 @@ def openWebsite(url):
 
 def searchOnWebsite(query):
     keyPress("/")
-    keyCombo("ctrl" , "a")
+    keyCombo("ctrl", "a")
     keyPress("backspace")
     writeText(query)
     keyPress("enter")
 
     wait(3)
     speak("Your Search Results ")
+
 
 def searchInBrowser(query):
     keyCombo("ctrl", "t")
@@ -77,13 +81,16 @@ def runCommandInTerminal(command):
     writeText(command)
     keyPress("enter")
 
+
 def searchInMenu(query):
     keyPress("win")
     wait(2)
     writeText(query)
 
+
 def openFolder(folder):
     subprocess.Popen(["thunar", os.path.join(HOME, folder)])
+
 
 def volumeUp():
     subprocess.run(["amixer", "-D", "pulse", "sset", "Master", "5%+"])

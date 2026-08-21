@@ -77,9 +77,6 @@ def execute(action, target, argument):
                     searchInBrowser(argument)
                     remember(action,target,argument)
     
-                    # else:
-                    #     speak("I can't search there yet.")
-    
                 elif target == "menu":
                     searchInMenu(argument)
                     remember(action,target,argument)

@@ -11,6 +11,7 @@ import os
 import sys
 import contextlib
 
+
 @contextlib.contextmanager
 def suppress_stderr():
     stderr_fd = sys.stderr.fileno()
@@ -29,8 +30,10 @@ def suppress_stderr():
             os.dup2(saved_stderr, stderr_fd)
             os.close(saved_stderr)
 
+
 r = sr.Recognizer()
 engine = psx.init()
+
 
 def listenAudio():
 
@@ -42,11 +45,7 @@ def listenAudio():
             r.adjust_for_ambient_noise(source, duration=0.5)
 
             try:
-                audio = r.listen(
-                    source,
-                    timeout=5,
-                    phrase_time_limit=10
-                )
+                audio = r.listen(source, timeout=5, phrase_time_limit=10)
 
                 text = r.recognize_google(audio)
 
@@ -63,7 +62,8 @@ def listenAudio():
             except sr.RequestError:
                 print("🌐 Speech service unavailable.")
                 return None
-            
+
+
 def speak(sp):
     engine.say(sp)
     engine.runAndWait()
