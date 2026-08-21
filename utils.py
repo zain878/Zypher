@@ -2,14 +2,20 @@ from context import context
 
 import time
 
+NON_HISTORY_ACTIONS = {"repeat", "back"}
+
 
 def wait(seconds=1):
     time.sleep(seconds)
 
 
 def remember(action, target=None, argument=None):
-    context["last_target"] = target
+
+    if action in NON_HISTORY_ACTIONS:
+        return
+
     context["last_action"] = action
+    context["last_target"] = target
     context["last_argument"] = argument
 
     context["history"].append(
