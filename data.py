@@ -27,7 +27,10 @@ actions = [
     "save",
     "repeat",
     "again",
-    "back"
+    "back",
+    "shutdown",
+    "reboot",
+    "suspend"
 ]
 
 aliases = {
@@ -65,7 +68,10 @@ aliases = {
     "repeat that": "repeat",
     "once more": "repeat",
     "previous command": "repeat",
-    "go back": "back"
+    "go back": "back",
+    "shut down": "shutdown",
+    "restart": "reboot",
+    "sleep": "suspend",
 }
 
 folders = {

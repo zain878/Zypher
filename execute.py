@@ -108,7 +108,13 @@ def execute(action, target, argument):
 
     elif action == "back":
                 keyCombo("alt" , "left")
-    
+
+    elif action == "shutdown":
+                shutdown()
+    elif action == "suspend":
+                suspend()
+    elif action == "reboot":
+                reboot()
     
     elif action == "find":
                 if not argument:

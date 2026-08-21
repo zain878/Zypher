@@ -29,6 +29,15 @@ def closeApplication():
 def closeTab():
     keyCombo("ctrl", "w")
 
+def shutdown():
+    subprocess.run(["systemctl", "poweroff"])
+
+def reboot():
+    subprocess.run(["systemctl", "reboot"])
+
+def suspend():
+    subprocess.run(["systemctl", "suspend"])
+
 def openWebsite(url):
     keyCombo("ctrl", "t")
     keyCombo("ctrl", "l")

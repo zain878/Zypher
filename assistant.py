@@ -1,47 +1,12 @@
-from utils import remember
 from execute import execute
 from speech import listenAudio, speak
 
 from parser import (
     parser,
-    normalizeSpeech,
-    normalizeCalculator, 
-)
-
-from actions import (
-    openApplication,
-    closeApplication,
-    closeTab,
-    openWebsite,
-    searchOnWebsite,
-    searchInBrowser,
-    runCommandInTerminal,
-    searchInMenu,
-    openFolder,
-    volumeUp,
-    volumeDown,
-    brightnessUp,
-    brightnessDown,
-)
-
-from keyboard import (
-    mouseClick,
-    keyboardPress,
-    selectAll,
-    shortcuts,
-    writeText,
-)
-
-from data import (
-    applications,
-    websites,
-    folders,
-    app_modes,
+    normalizeSpeech, 
 )
 
 from context import context
-
-from utils import wait
 
 def main():
     while True:
@@ -60,6 +25,7 @@ def main():
         #           .replace("zipher", "", 1)
         #           .strip()
         # )
+        
         if any(word in speech for word in ["stop", "goodbye", "bye"]):
                 speak("Signing off. Goodbye, Zain.")
                 break

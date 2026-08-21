@@ -22,6 +22,15 @@ def parser(speech):
         parts = speech.split("command")
         argument = parts[1].strip()
 
+    # elif "shutdown" in speech:
+    #     action = "shutdown"
+
+    # elif "suspend" in speech:
+    #     action = "suspend"
+
+    # elif "reboot" in speech:
+    #     action = "reboot"
+
     elif action == "find":
         parts = speech.split("find")
         argument = parts[1].strip()
@@ -30,7 +39,7 @@ def parser(speech):
         target = "terminal"
         parts = speech.split("run")
         argument = parts[1].strip()
-        
+
     elif action == "repeat":
         pass
 
@@ -96,6 +105,7 @@ def parser(speech):
     else:
         parts = speech.split(action)
         target = parts[1].strip()
+
     return action, target, argument
 
 
