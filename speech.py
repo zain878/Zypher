@@ -3,6 +3,10 @@ import pyttsx3 as psx
 from ctypes import *
 import contextlib
 
+# Suppress non-fatal ALSA/JACK warnings emitted by PortAudio
+# during Microphone initialization on Linux.
+# This keeps the terminal clean while preserving portability
+# across different microphone devices.
 import os
 import sys
 import contextlib

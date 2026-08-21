@@ -34,6 +34,8 @@ def keyboardPress(key):
         keyPress("enter")
     elif key == "tab":
         keyPress("tab")
+    elif key == "backspace":
+        keyPress("backspace")
 
 
 def selectAll():

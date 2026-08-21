@@ -3,7 +3,7 @@ from speech import listenAudio, speak
 from parser import (
     parser,
     normalizeSpeech,
-    normalizeCalculator,   # (temporarily, we'll discuss this below)
+    normalizeCalculator, 
 )
 
 from actions import (
@@ -49,15 +49,22 @@ def main():
             continue
 
         speech = normalizeSpeech(speech)
-        if "zypher" not in speech and "zipher" not in speech:
-            continue
+        # if "zypher" not in speech and "zipher" not in speech:
+        #     continue
 
-        # Remove the wake word
-        speech = (
-            speech.replace("zypher", "", 1)
-                  .replace("zipher", "", 1)
-                  .strip()
-        )
+        # # Remove the wake word
+        # speech = (
+        #     speech.replace("zypher", "", 1)
+        #           .replace("zipher", "", 1)
+        #           .strip()
+        # )
+        if any(word in speech for word in ["stop", "goodbye", "bye"]):
+                speak("Signing off. Goodbye, Zain.")
+                break
+        
+        elif any(word in speech for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]):
+            speak("Hello, Zain. This is Zypher. How can I assist you today?")
+            continue
 
         print(f"You said: '{speech}'")
         action, target, argument = parser(speech)
@@ -71,16 +78,10 @@ def main():
         if target == "it":
             target = context["last_target"]
 
-        if target is None:
-            speak("I don't know what 'it' refers to.")
-            continue
+            if target is None:
+                speak("I don't know what 'it' refers to.")
+                continue
 
-        if any(word in speech for word in ["stop", "goodbye", "bye"]):
-            speak("Signing off. Goodbye, Zain.")
-            break
-
-        elif any(word in speech for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]):
-            speak("Hello, Zain. This is Zypher. How can I assist you today?")
 
         if action == "open":
             if not target:
@@ -131,7 +132,7 @@ def main():
                     context["last_target"] = target
 
                     wait(2)
-                    searchOnWebsite(argument)
+                searchOnWebsite(argument)
 
             elif target == "google":
                 if context["app"] != "google":
@@ -141,10 +142,10 @@ def main():
                     context["app"] = "google"
                     context["last_target"] = "google"
 
-                    searchInBrowser(argument)
+                searchInBrowser(argument)
 
-                else:
-                    speak("I can't search there yet.")
+                # else:
+                #     speak("I can't search there yet.")
 
             elif target == "menu":
                 searchInMenu(argument)

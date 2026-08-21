@@ -41,6 +41,8 @@ def openWebsite(url):
 
 def searchOnWebsite(query):
     keyPress("/")
+    keyCombo("ctrl" , "a")
+    keyPress("backspace")
     writeText(query)
     keyPress("enter")
 

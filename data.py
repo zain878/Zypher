@@ -33,6 +33,7 @@ aliases = {
     "start": "open",
     "open up": "open",
     "fire up": "open",
+    "search in" : "search",
 
     "execute": "run",
 
@@ -48,18 +49,27 @@ aliases = {
 
     "chat gpt": "chatgpt",
 
-    "psuedo": "sudo",
+    "pseudo": "sudo",
 
     "pandu": "undo",
+
+    "chrome" : "google",
+    "google chrome" : "google",
+    "browser" : "google",
+    "back space": "backspace"
 }
 
 folders = {
     "downloads": "Downloads",
+    "download": "Downloads",
     "documents": "Documents",
+    "document": "Documents",
     "desktop": "Desktop",
     "music": "Music",
     "pictures": "Pictures",
+    "picture": "Pictures",
     "videos": "Videos",
+    "video": "Videos",
 }
 
 applications = {
@@ -99,6 +109,7 @@ websites = {
     "git hub": "https://github.com",
     "chatgpt": "https://chatgpt.com",
     "chat gpt": "https://chatgpt.com",
+    "chat": "https://chatgpt.com",
     "facebook": "https://facebook.com",
     "my portal": "https://horizon.ucp.edu.pk/web/login",
     "ucp portal": "https://horizon.ucp.edu.pk/web/login",
