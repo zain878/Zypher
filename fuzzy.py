@@ -6,11 +6,7 @@ def findBestMatch(word, choices, threshold=75):
     if not word:
         return word
 
-    result = process.extractOne(
-        word,
-        choices,
-        scorer=fuzz.ratio
-    )
+    result = process.extractOne(word, choices, scorer=fuzz.ratio)
 
     if result is None:
         return word
@@ -31,9 +27,7 @@ def correctTarget(action, target, applications, websites, folders):
     if action == "open":
 
         choices = (
-            list(applications.keys())
-            + list(websites.keys())
-            + list(folders.keys())
+            list(applications.keys()) + list(websites.keys()) + list(folders.keys())
         )
 
     elif action == "search":
@@ -42,10 +36,7 @@ def correctTarget(action, target, applications, websites, folders):
 
     elif action == "close":
 
-        choices = (
-            list(applications.keys())
-            + list(websites.keys())
-        )
+        choices = list(applications.keys()) + list(websites.keys())
 
     else:
         return target

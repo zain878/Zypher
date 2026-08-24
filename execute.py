@@ -5,6 +5,7 @@ from context import context
 from speech import speak
 from parser import normalizeCalculator
 from utils import wait, remember
+from opencv_utils import findTemplate, search_templates
 
 
 def execute(action, target, argument):
@@ -63,7 +64,7 @@ def execute(action, target, argument):
                 context["last_target"] = target
                 wait(2)
 
-            searchOnWebsite(argument)
+            searchOnWebsite(argument, target)
             success = True
 
         elif target == "google":

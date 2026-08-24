@@ -1,4 +1,5 @@
 from keyboard import keyPress, keyCombo, writeText
+from opencv_utils import *
 
 from speech import speak
 from utils import wait
@@ -51,7 +52,24 @@ def openWebsite(url):
     speak("Website Opened")
 
 
-def searchOnWebsite(query):
+def searchOnWebsite(query, website):
+
+    if website in search_templates:
+
+        position = findTemplate(search_templates[website])
+
+        if position:
+            pag.click(*position)
+            keyCombo("ctrl", "a")
+            keyPress("backspace")
+            writeText(query)
+            keyPress("enter")
+            wait(3)
+            speak("Your Search Results")
+            return
+
+        speak("I couldn't find the search bar. Trying another method")
+
     keyPress("/")
     keyCombo("ctrl", "a")
     keyPress("backspace")
@@ -59,7 +77,7 @@ def searchOnWebsite(query):
     keyPress("enter")
 
     wait(3)
-    speak("Your Search Results ")
+    speak("Your Search Results")
 
 
 def searchInBrowser(query):

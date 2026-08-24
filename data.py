@@ -108,19 +108,16 @@ app_modes = {
 
 websites = {
     "youtube": "https://youtube.com",
-    "you tube": "https://youtube.com",
-    "yt": "https://youtube.com",
     "github": "https://github.com",
     "git hub": "https://github.com",
     "chatgpt": "https://chatgpt.com",
-    "chat gpt": "https://chatgpt.com",
-    "chat": "https://chatgpt.com",
     "facebook": "https://facebook.com",
     "my portal": "https://horizon.ucp.edu.pk/web/login",
     "ucp portal": "https://horizon.ucp.edu.pk/web/login",
     "portal": "https://horizon.ucp.edu.pk/web/login",
     "whatsapp": "https://web.whatsapp.com/",
-    "whats app": "https://web.whatsapp.com/",
+    "gmail": "https://mail.google.com/mail/u/0/#inbox",
+    
 }
 
 numbers = {
