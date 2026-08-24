@@ -119,6 +119,8 @@ websites = {
     "my portal": "https://horizon.ucp.edu.pk/web/login",
     "ucp portal": "https://horizon.ucp.edu.pk/web/login",
     "portal": "https://horizon.ucp.edu.pk/web/login",
+    "whatsapp": "https://web.whatsapp.com/",
+    "whats app": "https://web.whatsapp.com/",
 }
 
 numbers = {

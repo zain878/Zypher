@@ -1,5 +1,7 @@
 from execute import execute
 from speech import listenAudio, speak
+from fuzzy import *
+from data import *
 
 from parser import (
     parser,
@@ -7,6 +9,7 @@ from parser import (
 )
 
 from context import context
+from fuzzy import findBestMatch
 
 
 def main():
@@ -40,6 +43,8 @@ def main():
 
         print(f"You said: '{speech}'")
         action, target, argument = parser(speech)
+
+        target = correctTarget(action, target, applications, websites, folders)
 
         # Nothing understood
         if action is None:
