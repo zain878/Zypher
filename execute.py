@@ -5,7 +5,6 @@ from context import context
 from speech import speak
 from parser import normalizeCalculator
 from utils import wait, remember
-from opencv_utils import findTemplate, search_templates
 
 
 def execute(action, target, argument):
