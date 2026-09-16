@@ -2,3 +2,4 @@ SpeechRecognition
 PyAudio
 PyAutoGUI
 pyttsx3
+rapidfuzz
