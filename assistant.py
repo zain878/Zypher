@@ -1,65 +1,63 @@
 from execute import execute
 from speech import listenAudio, speak
-from fuzzy import *
-from data import *
-
-from parser import (
-    parser,
-    normalizeSpeech,
-)
-
+from fuzzy import correctTarget
+from data import applications, websites, folders
+from parser import parser, normalizeSpeech
 from context import context
-from fuzzy import findBestMatch
+
+
+def process_speech(speech):
+    """Process one recognized command and preserve Zypher context."""
+
+    if not speech:
+        return {"status": "I didn't hear anything.", "speech": None}
+
+    speech = normalizeSpeech(speech)
+
+    if any(word in speech for word in ["stop", "goodbye", "bye"]):
+        speak("Signing off. Goodbye, Zain.")
+        return {"status": "Signing off.", "speech": speech, "stop": True}
+
+    if any(
+        word in speech
+        for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]
+    ):
+        reply = "Hello, Zain. This is Zypher. How can I assist you today?"
+        speak(reply)
+        return {"status": reply, "speech": speech}
+
+    action, target, argument = parser(speech)
+    target = correctTarget(action, target, applications, websites, folders)
+
+    if action is None:
+        speak("Sorry, I didn't understand.")
+        return {"status": "Sorry, I didn't understand.", "speech": speech}
+
+    # This is the same shared context used by every later button click.
+    if target == "it":
+        target = context["last_target"]
+
+        if target is None:
+            reply = "I don't know what 'it' refers to."
+            speak(reply)
+            return {"status": reply, "speech": speech}
+
+    execute(action, target, argument)
+    return {"status": "Ready", "speech": speech}
+
+
+def run_one_command():
+    """Listen once, then process exactly one Zypher command."""
+    return process_speech(listenAudio())
 
 
 def main():
+    """Keep the original terminal-based continuous mode working."""
     while True:
-        speech = listenAudio()
+        result = run_one_command()
 
-        if speech is None:
-            continue
-
-        speech = normalizeSpeech(speech)
-        # if "zypher" not in speech and "zipher" not in speech:
-        #     continue
-
-        # # Remove the wake word
-        # speech = (
-        #     speech.replace("zypher", "", 1)
-        #           .replace("zipher", "", 1)
-        #           .strip()
-        # )
-
-        if any(word in speech for word in ["stop", "goodbye", "bye"]):
-            speak("Signing off. Goodbye, Zain.")
+        if result.get("stop"):
             break
-
-        elif any(
-            word in speech
-            for word in ["hello", "hi", "hey", "hello zypher", "hello zipher"]
-        ):
-            speak("Hello, Zain. This is Zypher. How can I assist you today?")
-            continue
-
-        print(f"You said: '{speech}'")
-        action, target, argument = parser(speech)
-
-        target = correctTarget(action, target, applications, websites, folders)
-
-        # Nothing understood
-        if action is None:
-            speak("Sorry, I didn't understand.")
-            continue
-
-        # Resolve "it" using context
-        if target == "it":
-            target = context["last_target"]
-
-            if target is None:
-                speak("I don't know what 'it' refers to.")
-                continue
-
-        execute(action, target, argument)
 
 
 if __name__ == "__main__":

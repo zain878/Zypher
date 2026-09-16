@@ -1,4 +1,4 @@
-from assistant import main
+from gui import root
 
 if __name__ == "__main__":
-    main()
+    root.mainloop()

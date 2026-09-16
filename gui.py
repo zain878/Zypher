@@ -1,7 +1,7 @@
 import tkinter as tk
 import threading
 
-from assistant import listenAudio
+from assistant import run_one_command
 from parser import parser
 from fuzzy import correctTarget
 from execute import execute
@@ -115,25 +115,17 @@ def startListening():
 
 
 def processCommand():
+    result = run_one_command()
+    speech = result.get("speech")
+    message = result.get("status", "Ready")
 
-    speech = listenAudio()
+    if speech:
+        root.after(
+            0,
+            lambda: command_label.config(text=f'You said: "{speech}"'),
+        )
 
-    if not speech:
-        root.after(0, lambda: resetGUI("I didn't hear anything."))
-        return
-
-    root.after(0, lambda: command_label.config(text=f'You said: "{speech}"'))
-
-    # Existing Zypher pipeline
-    action, target, argument = parser(speech)
-
-    # Your existing fuzzy correction
-    target = correctTarget(action, target, applications, websites, folders)
-
-    # Existing executor
-    execute(action, target, argument)
-
-    root.after(0, lambda: resetGUI("Ready"))
+    root.after(0, lambda: resetGUI(message))
 
 
 def resetGUI(message):
