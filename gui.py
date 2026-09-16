@@ -2,10 +2,6 @@ import tkinter as tk
 import threading
 
 from assistant import run_one_command
-from parser import parser
-from fuzzy import correctTarget
-from execute import execute
-from data import *
 
 # ---------------- GUI COLORS ----------------
 
@@ -35,7 +31,9 @@ root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 
 root.resizable(False, False)
-root.configure(bg=BG_COLOR,)
+root.configure(
+    bg=BG_COLOR,
+)
 
 
 # ---------------- TITLE ----------------
@@ -60,7 +58,9 @@ subtitle.pack()
 
 # ---------------- STATUS ----------------
 
-status = tk.Label(root, text="Ready", font=("Share Tech Mono", 12), fg=SUCCESS_COLOR, bg=BG_COLOR)
+status = tk.Label(
+    root, text="Ready", font=("Share Tech Mono", 12), fg=SUCCESS_COLOR, bg=BG_COLOR
+)
 
 status.pack(pady=(35, 20))
 
@@ -99,45 +99,96 @@ command_label = tk.Label(
 command_label.pack(pady=30)
 
 
-# ---------------- LISTENING FUNCTION ----------------
+# ---------------- CONTINUOUS LISTENING ----------------
+
+listening_event = threading.Event()
+listener_thread = None
 
 
-def startListening():
-
-    status.config(text="Listening...", fg=ACCENT_HOVER)
-
-    command_label.config(text="I'm listening...")
-
-    mic_button.config(state="disabled")
-
-    # Run microphone in background
-    threading.Thread(target=processCommand, daemon=True).start()
-
-
-def processCommand():
-    result = run_one_command()
-    speech = result.get("speech")
-    message = result.get("status", "Ready")
-
-    if speech:
-        root.after(
-            0,
-            lambda: command_label.config(text=f'You said: "{speech}"'),
+def update_listening_ui(is_listening, message=None):
+    if is_listening:
+        status.config(
+            text=message or "Listening continuously...",
+            fg=ACCENT_HOVER,
         )
+        command_label.config(
+            text="Speak a command, or press the button again to pause."
+        )
+        mic_button.config(text="■", bg="#EF4444")
+    else:
+        status.config(text=message or "Paused", fg=SUCCESS_COLOR)
+        mic_button.config(text="🎤", bg=ACCENT_COLOR)
 
-    root.after(0, lambda: resetGUI(message))
+
+def continuous_listening_loop():
+    while listening_event.is_set():
+        try:
+            result = run_one_command()
+        except Exception as error:
+            listening_event.clear()
+            root.after(
+                0,
+                lambda error=error: update_listening_ui(
+                    False,
+                    f"Error: {error}",
+                ),
+            )
+            return
+
+        speech = result.get("speech")
+        message = result.get("status", "Listening continuously...")
+
+        if speech:
+            root.after(
+                0,
+                lambda speech=speech: command_label.config(
+                    text=f'You said: "{speech}"'
+                ),
+            )
+
+        # "stop", "bye", and "goodbye" also stop continuous mode.
+        if result.get("stop"):
+            listening_event.clear()
+            root.after(
+                0,
+                lambda message=message: update_listening_ui(False, message),
+            )
+            return
+
+        if listening_event.is_set():
+            root.after(
+                0,
+                lambda: status.config(
+                    text="Listening continuously...",
+                    fg=ACCENT_HOVER,
+                ),
+            )
 
 
-def resetGUI(message):
+def toggle_listening():
+    global listener_thread
 
-    status.config(text=message, fg=SUCCESS_COLOR)
+    # Second click: request that the loop pauses.
+    if listening_event.is_set():
+        listening_event.clear()
+        update_listening_ui(False, "Pausing after this command...")
+        return
 
-    mic_button.config(state="normal")
+    # First click: start the persistent command loop.
+    listening_event.set()
+    update_listening_ui(True)
+
+    if listener_thread is None or not listener_thread.is_alive():
+        listener_thread = threading.Thread(
+            target=continuous_listening_loop,
+            daemon=True,
+        )
+        listener_thread.start()
 
 
 # ---------------- BUTTON ACTION ----------------
 
-mic_button.config(command=startListening)
+mic_button.config(command=toggle_listening)
 
 
 # ---------------- START GUI ----------------
