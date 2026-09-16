@@ -1,4 +1,4 @@
-from keyboard import keyPress, keyCombo, writeText
+from keyboard_actions import keyPress, keyCombo, writeText
 from opencv_utils import *
 
 from speech import speak
